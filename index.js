@@ -1,20 +1,20 @@
 const express = require("express");
 const { admin, ref, rdb } = require("./firebase");
-
+const cors = require("cors");
 const app = express();
 
-app.use(express.json());
+app.use(express.json(), cors());
 
 app.post("/updateByTime", async (req, res) => {
   const { sft, swt, ft, mb, phU, phD } = req.body;
   try {
     const currentMilliseconds = new Date().getTime();
     if (sft != null || sft != "") {
-      const setSft = new Date();
+      const setSft = new Date(); 
       const arraySft = sft.split(":");
       setSft.setHours(parseInt(arraySft[0]));
       setSft.setMinutes(parseInt(arraySft[1]));
-      difSft = setSft.getTime() - Date.now();
+      difSft = setSft.getTime() - currentMilliseconds;
       let sprinkersRef = rdb.ref("relaystate/sprinklerfertilizers");
 
       if (difSft > 0) {
@@ -183,27 +183,6 @@ app.post("/updateByTime", async (req, res) => {
         }, 1000);
       }
     }
-
-    //   if (timeDifference > 0) {
-    //     db.ref("difFT")
-    //       .set(timeDifference)
-    //       .then(() => console.log("set time success"))
-    //       .catch((error) =>
-    //         console.error("Error updating value in Firebase:", error)
-    //       );
-
-    //     const countdownInterval = setInterval(() => {
-    //       timeDifference -= 1000;
-    //       if (timeDifference <= 0) {
-    //         clearInterval(countdownInterval);
-    //         db.ref("relaystate/sprinklerfertilizers").set(!sprinker_FT);
-    //       } else {
-    //         db.ref("difFT").set(timeDifference);
-    //       }
-    //     }, 1000);
-    //   } else {
-    //     db.ref("relaystate/sprinklerfertilizers").set(sprinker_FT);
-    //   }
 
     return res.status(200).json({ message: "อัปเดตสำเร็จ" });
   } catch (error) {
