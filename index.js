@@ -8,135 +8,135 @@ const FormData = require("form-data");
 app.use(express.json(), cors());
 
 app.post("/updateCron", async (req, res) => {
-  try{
-  const { ft, mb, phU, phD } = req.body;
-  const arrayFt = ft.split(":");
-  const axios = require("axios");
-  console.log("ft", arrayFt);
-  let data = JSON.stringify({
-    job: {
-      enabled: true,
-      schedule: {
-        timezone: "Asia/Bangkok",
-        hours: [arrayFt[0]],
-        minutes: [arrayFt[1]],
+  try {
+    const { ft, mb, phU, phD } = req.body;
+    const arrayFt = ft.split(":");
+    const axios = require("axios");
+    console.log("ft", arrayFt);
+    let data = JSON.stringify({
+      job: {
+        enabled: true,
+        schedule: {
+          timezone: "Asia/Bangkok",
+          hours: [arrayFt[0]],
+          minutes: [arrayFt[1]],
+        },
       },
-    },
-  });
-  let config = {
-    method: "patch",
-    maxBodyLength: Infinity,
-    url: "https://api.cron-job.org/jobs/5018142",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
-    },
-    data: data,
-  };
-  axios
-    .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
     });
+    let config = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: "https://api.cron-job.org/jobs/5018142",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
+      },
+      data: data,
+    };
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  const arrayMb = mb.split(":");
-  const axiosMb = require("axios");
-  let dataMb = JSON.stringify({
-    job: {
-      enabled: true,
-      schedule: {
-        timezone: "Asia/Bangkok",
-        hours: [arrayMb[0]],
-        minutes: [arrayMb[1]],
+    const arrayMb = mb.split(":");
+    const axiosMb = require("axios");
+    let dataMb = JSON.stringify({
+      job: {
+        enabled: true,
+        schedule: {
+          timezone: "Asia/Bangkok",
+          hours: [arrayMb[0]],
+          minutes: [arrayMb[1]],
+        },
       },
-    },
-  });
-  console.log("mb", arrayMb);
-  let configMb = {
-    method: "patch",
-    maxBodyLength: Infinity,
-    url: "https://api.cron-job.org/jobs/5020673",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
-    },
-    data: dataMb,
-  };
-  axiosMb
-    .request(configMb)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
     });
+    console.log("mb", arrayMb);
+    let configMb = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: "https://api.cron-job.org/jobs/5020673",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
+      },
+      data: dataMb,
+    };
+    axiosMb
+      .request(configMb)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  const arrayphU = phU.split(":");
-  const axiosphU = require("axios");
-  let dataphU = JSON.stringify({
-    job: {
-      enabled: true,
-      schedule: {
-        timezone: "Asia/Bangkok",
-        hours: [arrayphU[0]],
-        minutes: [arrayphU[1]],
+    const arrayphU = phU.split(":");
+    const axiosphU = require("axios");
+    let dataphU = JSON.stringify({
+      job: {
+        enabled: true,
+        schedule: {
+          timezone: "Asia/Bangkok",
+          hours: [arrayphU[0]],
+          minutes: [arrayphU[1]],
+        },
       },
-    },
-  });
-  console.log("phU", arrayphU);
-  let configphU = {
-    method: "patch",
-    maxBodyLength: Infinity,
-    url: "https://api.cron-job.org/jobs/5018210",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
-    },
-    data: dataphU,
-  };
-  axiosphU
-    .request(configphU)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
     });
+    console.log("phU", arrayphU);
+    let configphU = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: "https://api.cron-job.org/jobs/5018210",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
+      },
+      data: dataphU,
+    };
+    axiosphU
+      .request(configphU)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  const arrayphD = phD.split(":");
-  const axiosphD = require("axios");
-  let dataphD = JSON.stringify({
-    job: {
-      enabled: true,
-      schedule: {
-        timezone: "Asia/Bangkok",
-        hours: [arrayphD[0]],
-        minutes: [arrayphD[1]],
+    const arrayphD = phD.split(":");
+    const axiosphD = require("axios");
+    let dataphD = JSON.stringify({
+      job: {
+        enabled: true,
+        schedule: {
+          timezone: "Asia/Bangkok",
+          hours: [arrayphD[0]],
+          minutes: [arrayphD[1]],
+        },
       },
-    },
-  });
-  console.log("phD", arrayphD);
-  let configphD = {
-    method: "patch",
-    maxBodyLength: Infinity,
-    url: "https://api.cron-job.org/jobs/5020675",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
-    },
-    data: dataphD,
-  };
-  axiosphD
-    .request(configphD)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
     });
+    console.log("phD", arrayphD);
+    let configphD = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: "https://api.cron-job.org/jobs/5020675",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
+      },
+      data: dataphD,
+    };
+    axiosphD
+      .request(configphD)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     return res.status(200).json({ message: "อัปเดตสำเร็จ" });
   } catch (error) {
     return res.status(500).json({ error: "ไม่สามารถอัปเดตได้" });
@@ -144,39 +144,39 @@ app.post("/updateCron", async (req, res) => {
 });
 
 app.post("/updateCronSprinker", async (req, res) => {
-  const { swt, sft } = req.body;
-  const arrayswt = swt.split(":");
-  const axiosswt = require("axios");
-  let dataswt = JSON.stringify({
-    job: {
-      enabled: true,
-      schedule: {
-        timezone: "Asia/Bangkok",
-        hours: [arrayswt[0]],
-        minutes: [arrayswt[1]],
+  try {
+    const { swt, sft } = req.body;
+    const arrayswt = swt.split(":");
+    const axiosswt = require("axios");
+    let dataswt = JSON.stringify({
+      job: {
+        enabled: true,
+        schedule: {
+          timezone: "Asia/Bangkok",
+          hours: [arrayswt[0]],
+          minutes: [arrayswt[1]],
+        },
       },
-    },
-  });
-  console.log("swt", arrayswt);
-  let configswt = {
-    method: "patch",
-    maxBodyLength: Infinity,
-    url: "https://api.cron-job.org/jobs/5020676",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
-    },
-    data: dataswt,
-  };
-  axiosswt
-    .request(configswt)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
     });
-
+    console.log("swt", arrayswt);
+    let configswt = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: "https://api.cron-job.org/jobs/5020676",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ftYbSmpLTBEJkXdU9Dmfcs+TPoyT4B7XD/lcdwHibR4=",
+      },
+      data: dataswt,
+    };
+    axiosswt
+      .request(configswt)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     const arraysft = sft.split(":");
     const axiossft = require("axios");
@@ -209,6 +209,10 @@ app.post("/updateCronSprinker", async (req, res) => {
       .catch((error) => {
         console.log(error);
       });
+    return res.status(200).json({ message: "อัปเดตสำเร็จ" });
+  } catch (error) {
+    return res.status(500).json({ error: "ไม่สามารถอัปเดตได้" });
+  }
 });
 
 app.get("/changeFt", async (req, res) => {
@@ -730,7 +734,7 @@ app.get("/test", (req, res) => {
   res.status(200).send("Test successful!"); // ส่งข้อความ 'Test successful!' กลับไป
 });
 
-const PORT = 8080
+const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
