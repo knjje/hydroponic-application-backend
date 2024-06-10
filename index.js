@@ -404,143 +404,148 @@ app.get("/changeSprinkerWater", async (req, res) => {
 });
 
 app.get("/noti", async (req, res) => {
-  let datatem = new FormData();
-  let temperature = rdb.ref("Temperature");
-  temperature.once("value", (e) => {
-    const temperatureValue = e.val();
-    if (temperatureValue > 30) {
-      datatem.append(
-        "message",
-        "ขณะนี้อุณหภูมิสูงกว่า 30 องศา อุณหภูมิของท่านคือ " +
-          temperatureValue +
-          " องศา"
-      );
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://notify-api.line.me/api/notify",
-        headers: {
-          Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
-          ...datatem.getHeaders(),
-        },
-        data: datatem,
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  });
+  try {
+    let datatem = new FormData();
+    let temperature = rdb.ref("Temperature");
+    temperature.once("value", (e) => {
+      const temperatureValue = e.val();
+      if (temperatureValue > 30) {
+        datatem.append(
+          "message",
+          "ขณะนี้อุณหภูมิสูงกว่า 30 องศา อุณหภูมิของท่านคือ " +
+            temperatureValue +
+            " องศา"
+        );
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://notify-api.line.me/api/notify",
+          headers: {
+            Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
+            ...datatem.getHeaders(),
+          },
+          data: datatem,
+        };
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
 
-  let data = new FormData();
-  let humidity = rdb.ref("Humidity");
-  humidity.once("value", (e) => {
-    const humidityValue = e.val();
-    if (humidityValue > 80) {
-      data.append(
-        "message",
-        "ขณะนี้ความชื้นสูงกว่า 80% ความชื้นของท่านคือ " + humidityValue + "%"
-      );
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://notify-api.line.me/api/notify",
-        headers: {
-          Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
-          ...data.getHeaders(),
-        },
-        data: data,
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else if (humidityValue < 40) {
-      data.append(
-        "message",
-        "ขณะนี้ความชื้นต่ำกว่า 40% ความชื้นของท่านคือ " + humidityValue + "%"
-      );
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://notify-api.line.me/api/notify",
-        headers: {
-          Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
-          ...data.getHeaders(),
-        },
-        data: data,
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  });
+    let data = new FormData();
+    let humidity = rdb.ref("Humidity");
+    humidity.once("value", (e) => {
+      const humidityValue = e.val();
+      if (humidityValue > 80) {
+        data.append(
+          "message",
+          "ขณะนี้ความชื้นสูงกว่า 80% ความชื้นของท่านคือ " + humidityValue + "%"
+        );
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://notify-api.line.me/api/notify",
+          headers: {
+            Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
+            ...data.getHeaders(),
+          },
+          data: data,
+        };
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (humidityValue < 40) {
+        data.append(
+          "message",
+          "ขณะนี้ความชื้นต่ำกว่า 40% ความชื้นของท่านคือ " + humidityValue + "%"
+        );
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://notify-api.line.me/api/notify",
+          headers: {
+            Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
+            ...data.getHeaders(),
+          },
+          data: data,
+        };
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
 
-  let dataPh = new FormData();
-  let ph = rdb.ref("pHValue");
-  ph.once("value", (e) => {
-    const phValue = e.val();
-    if (phValue > 8) {
-      dataPh.append(
-        "message",
-        "ขณะนี้ค่า pH สูงกว่า 8 ค่า pH ของท่านคือ " + phValue
-      );
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://notify-api.line.me/api/notify",
-        headers: {
-          Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
-          ...dataPh.getHeaders(),
-        },
-        data: dataPh,
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else if (phValue < 3) {
-      dataPh.append(
-        "message",
-        "ขณะนี้ค่า pH ต่ำกว่า 3 ค่า pH ของท่านคือ " + phValue
-      );
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://notify-api.line.me/api/notify",
-        headers: {
-          Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
-          ...dataPh.getHeaders(),
-        },
-        data: dataPh,
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  });
+    let dataPh = new FormData();
+    let ph = rdb.ref("pHValue");
+    ph.once("value", (e) => {
+      const phValue = e.val();
+      if (phValue > 8) {
+        dataPh.append(
+          "message",
+          "ขณะนี้ค่า pH สูงกว่า 8 ค่า pH ของท่านคือ " + phValue
+        );
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://notify-api.line.me/api/notify",
+          headers: {
+            Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
+            ...dataPh.getHeaders(),
+          },
+          data: dataPh,
+        };
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (phValue < 3) {
+        dataPh.append(
+          "message",
+          "ขณะนี้ค่า pH ต่ำกว่า 3 ค่า pH ของท่านคือ " + phValue
+        );
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://notify-api.line.me/api/notify",
+          headers: {
+            Authorization: "Bearer iU2H524KfuGVWmHTXZHYTsg1haf6QUZc9OfHoW8H7qZ",
+            ...dataPh.getHeaders(),
+          },
+          data: dataPh,
+        };
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+    return res.status(200).json({ message: "success" });
+  } catch (error) {
+    return res.status(500).json({ error: "error" });
+  }
 });
 
 // app.post("/updateByTime", async (req, res) => {
