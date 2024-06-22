@@ -15,13 +15,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          node-version: '20.x'
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '20.x'
+          node-version: '18.x'
 
       - name: npm install, build, and test
         run: |
