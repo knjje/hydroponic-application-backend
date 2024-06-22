@@ -4,8 +4,10 @@ const cors = require("cors");
 const app = express();
 const axios = require("axios");
 const FormData = require("form-data");
+const path = require('path');
 
 app.use(express.json(), cors());
+app.use(express.urlencoded({ extended: true }));
 
 //updateCron
 app.post("/updateFT", async (req, res) => {
@@ -774,6 +776,12 @@ app.get("/noti", async (req, res) => {
 
 app.get("/test", (req, res) => {
   res.status(200).send("Test successful!"); // ส่งข้อความ 'Test successful!' กลับไป
+});
+
+app.use(express.static(path.join(__dirname, '/hydroponic_application')));
+// app.get("/login", (req, res) => res.sendFile(path.join(__dirname)));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/hydroponic_application', 'index.html'));
 });
 
 let port = process.env.PORT || 3000;
