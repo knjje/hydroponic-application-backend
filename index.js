@@ -776,7 +776,7 @@ app.get("/test", (req, res) => {
   res.status(200).send("Test successful!"); // ส่งข้อความ 'Test successful!' กลับไป
 });
 
-port = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+let port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
