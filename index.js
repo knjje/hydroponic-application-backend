@@ -344,7 +344,7 @@ app.get("/resetFT", async (req, res) => {
   }
 });
 
-app.get("/resetMB", async (req, res) => {h
+app.get("/resetMB", async (req, res) => {
   try {
     const axios = require("axios");
         let configSwtCancel = {
