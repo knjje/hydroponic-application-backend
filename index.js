@@ -442,9 +442,7 @@ app.get("/resetPHD", async (req, res) => {
 app.get("/changeFt", async (req, res) => {
   try {
     let fertilizer = rdb.ref("relaystate/fertilizers");
-    let timeFT = rdb.ref("timeFT");
     fertilizer.set(true);
-    timeFT.set("");
     let data = new FormData();
     data.append("message", "กำลังเริ่มใส่ปุ๋ย");
     let config = {
@@ -474,8 +472,6 @@ app.get("/changeFt", async (req, res) => {
 app.get("/changeMb", async (req, res) => {
   try {
     let microbial = rdb.ref("relaystate/microbial");
-    let timeMB = rdb.ref("timeMB");
-    timeMB.set("");
     microbial.set(true);
     let data = new FormData();
     data.append("message", "กำลังเริ่มใส่สารอาหาร");
@@ -506,8 +502,6 @@ app.get("/changeMb", async (req, res) => {
 app.get("/changePhU", async (req, res) => {
   try {
     let pumpphUP = rdb.ref("relaystate/pumpphUP");
-    let timePHU = rdb.ref("timePHU");
-    timePHU.set("");
     pumpphUP.set(true);
     let data = new FormData();
     data.append("message", "กำลังเริ่มใส่สารเพิ่มค่า pH");
@@ -538,8 +532,6 @@ app.get("/changePhU", async (req, res) => {
 app.get("/changePhD", async (req, res) => {
   try {
     let pumpphDown = rdb.ref("relaystate/pumpphDown");
-    let timePHD = rdb.ref("timePHD");
-    timePHD.set("");
     pumpphDown.set(true);
     let data = new FormData();
     data.append("message", "กำลังเริ่มใส่สารลดค่า pH");
