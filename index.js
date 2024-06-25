@@ -623,7 +623,7 @@ app.get("/changeSprinkerWater", async (req, res) => {
 //noti
 app.get("/noti", async (req, res) => {
   try{
-  letdatatem = new FormData();
+  let datatem = new FormData();
   let temperature = rdb.ref("Temperature");
   temperature.once("value", (e) => {
     const temperatureValue = e.val();
