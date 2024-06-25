@@ -627,10 +627,10 @@ app.get("/noti", async (req, res) => {
   let temperature = rdb.ref("Temperature");
   temperature.once("value", (e) => {
     const temperatureValue = e.val();
-    if (temperatureValue > 30) {
+    if (temperatureValue > 35) {
       datatem.append(
         "message",
-        "ขณะนี้อุณหภูมิสูงกว่า 30 องศา อุณหภูมิของท่านคือ " +
+        "ขณะนี้อุณหภูมิสูงกว่า 35 องศา อุณหภูมิของท่านคือ " +
           temperatureValue +
           " องศา"
       );
