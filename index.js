@@ -9,6 +9,7 @@ const path = require('path');
 app.use(express.json(), cors());
 app.use(express.urlencoded({ extended: true }));
 
+
 //updateCron
 app.post("/updateFT", async (req, res) => {
   try {
@@ -766,6 +767,41 @@ app.get("/noti", async (req, res) => {
 }
 });
 
+app.post("/filLog", async (req, res) => {
+  try {
+    const { startDate } = req.body; // startDate ที่ส่งมาในรูปแบบ "2024-06-25"
+    
+    // แปลงวันที่จาก request body ให้เป็น timestamp ที่ต้องการค้นหา
+    const targetDate = new Date(startDate);
+    
+    const logSensorRef = rdb.ref("logSensor");
+    const snapshot = await logSensorRef.once("value");
+    const logSensorValue = snapshot.val();
+
+    if (logSensorValue) {
+      const dataArray = Object.entries(logSensorValue).map(([key, value]) => ({
+        key,
+        ...value
+      })).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      const filteredData = dataArray.filter(item => {
+        const timestamp = new Date(item.timestamp);
+        // เปรียบเทียบเฉพาะวันที่เดียวกัน
+        return timestamp.getFullYear() === targetDate.getFullYear() &&
+               timestamp.getMonth() === targetDate.getMonth() &&
+               timestamp.getDate() === targetDate.getDate();
+      });
+
+      return res.status(200).json({ data: filteredData });
+    } else {
+      return res.status(404).json({ message: "No data found" });
+    }
+  } catch (error) {
+    console.error("Error fetching logSensor data:", error);
+    return res.status(500).json({ error: "Error fetching logSensor data" });
+  }
+});
+
 //get log sensor
 app.get("/getLog", async (req, res) => {
   try {
@@ -790,6 +826,12 @@ app.get("/getLog", async (req, res) => {
     return res.status(500).json({ error: "Error fetching logSensor data" });
   }
 });
+
+
+
+
+
+
 
 app.get("/test", (req, res) => {
   res.status(200).send("Test successful!"); // ส่งข้อความ 'Test successful!' กลับไป
